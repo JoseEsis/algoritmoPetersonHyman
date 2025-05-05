@@ -1,0 +1,169 @@
+- Pascal-FC for IBM PC compatibles - 
+- GNU Compiler Version P5.2
+
+G L Davies  &  A Burns, University of York
+
+Compiler listing
+
+    1     0 program algortimoPeterson;
+    2     0 
+    3     0 var
+    4     0   S1, S2: boolean;
+    5     0   turno, suma: integer;
+    6     0 
+    7     0 process P1;
+    8     0 begin
+    9     0  repeat
+   10     0   S1 := true;
+   11     3   turno := 2;
+   12     6   while (S2 = true) and (turno = 2) do
+   13    14     begin
+   14    14       writeln('Esperando(P1)....');
+   15    17     end;
+   16    18     writeln('El proceso 1 se encuentra en su seccion critica(SC): ');
+   17    21     suma:= suma+1;
+   18    26     writeln('La suma total es: ', suma);
+   19    31     S1:=false;
+   20    34    forever
+   21    35 end;
+   22    36 process P2;
+   23    36 begin
+   24    36  repeat
+   25    36   S2 := true;
+   26    39   turno := 1;
+   27    42   while (S1 = true) and (turno = 1) do
+   28    50     begin
+   29    50       writeln('Esperando(P2)....');
+   30    53     end;
+   31    54     writeln('El proceso 2 se encuentra en su seccion critica(SC): ');
+   32    57     suma:= suma+2;
+   33    62     writeln('La suma total es: ', suma);
+   34    67     S2:=false;
+   35    70    forever
+   36    71 end;
+   37    72 
+   38    72 begin
+   39    72   suma:=0;
+   40    75   S1 := false;
+   41    78   S2 := false;
+   42    81   turno := 1;
+   43    84   cobegin
+   44    85     P1;
+   45    89     P2;
+   46    93   coend;
+   47    94 end.
+
+
+
+Symbol table
+
+    name       link      objekt       type         ref      nrm  lev  adr  aux
+
+ 45 _main        44     procedure   notyp           2      True    0   72    0
+ 46 any           0     variable    synch           0      True    1    5    0
+ 47 s1           46     variable    boolean         0      True    1    5    0
+ 48 s2           47     variable    boolean         0      True    1    6    0
+ 49 turno        48     variable    integer         0      True    1    7    0
+ 50 suma         49     variable    integer         0      True    1    8    0
+ 51 p1           50     variable    process         3      True    1    9    0
+ 52 $            51     type id     process         3      True    1    0    0
+ 53 p2           52     variable    process         4      True    1   10    0
+ 54 $            53     type id     process         4      True    1   36    0
+
+Generated P-code
+
+    0     ldadr        1         5          ;9
+    1     ldcon.b      0         1          ;10
+    2     store.b      0         0          ;10
+    3     ldadr        1         7          ;10
+    4     ldcon.i      0         2          ;11
+    5     store.i      0         0          ;11
+    6     ldval.b      1         6          ;12
+    7     ldcon.b      0         1          ;12
+    8     releq.b      0         0          ;12
+    9     ldval.i      1         7          ;12
+   10     ldcon.i      0         2          ;12
+   11     releq.i      0         0          ;12
+   12     andop.b      0         0          ;12
+   13     jmpiz        0        18          ;12
+   14     ldcon.i      0        17          ;14
+   15     wrstr        0         0          ;14
+   16     wrlin        0         0          ;14
+   17     jmpuc        0         6          ;14
+   18     ldcon.i      0        53          ;16
+   19     wrstr        0        17          ;16
+   20     wrlin        0         0          ;16
+   21     ldadr        1         8          ;16
+   22     ldval.i      1         8          ;17
+   23     ldcon.i      0         1          ;17
+   24     addop.i      0         0          ;17
+   25     store.i      0         0          ;17
+   26     ldcon.i      0        18          ;18
+   27     wrstr        0        70          ;18
+   28     ldval.i      1         8          ;18
+   29     wrval.i      0         0          ;18
+   30     wrlin        0         0          ;18
+   31     ldadr        1         5          ;18
+   32     ldcon.b      0         0          ;19
+   33     store.b      0         0          ;19
+   34     jmpuc        0         0          ;19
+   35     rproc        1         0          ;20
+   36     ldadr        1         6          ;24
+   37     ldcon.b      0         1          ;25
+   38     store.b      0         0          ;25
+   39     ldadr        1         7          ;25
+   40     ldcon.i      0         1          ;26
+   41     store.i      0         0          ;26
+   42     ldval.b      1         5          ;27
+   43     ldcon.b      0         1          ;27
+   44     releq.b      0         0          ;27
+   45     ldval.i      1         7          ;27
+   46     ldcon.i      0         1          ;27
+   47     releq.i      0         0          ;27
+   48     andop.b      0         0          ;27
+   49     jmpiz        0        54          ;27
+   50     ldcon.i      0        17          ;29
+   51     wrstr        0        88          ;29
+   52     wrlin        0         0          ;29
+   53     jmpuc        0        42          ;29
+   54     ldcon.i      0        53          ;31
+   55     wrstr        0       105          ;31
+   56     wrlin        0         0          ;31
+   57     ldadr        1         8          ;31
+   58     ldval.i      1         8          ;32
+   59     ldcon.i      0         2          ;32
+   60     addop.i      0         0          ;32
+   61     store.i      0         0          ;32
+   62     ldcon.i      0        18          ;33
+   63     wrstr        0       158          ;33
+   64     ldval.i      1         8          ;33
+   65     wrval.i      0         0          ;33
+   66     wrlin        0         0          ;33
+   67     ldadr        1         6          ;33
+   68     ldcon.b      0         0          ;34
+   69     store.b      0         0          ;34
+   70     jmpuc        0        36          ;34
+   71     rproc        1         0          ;35
+   72     ldadr        1         8          ;38
+   73     ldcon.i      0         0          ;39
+   74     store.i      0         0          ;39
+   75     ldadr        1         5          ;39
+   76     ldcon.b      0         0          ;40
+   77     store.b      0         0          ;40
+   78     ldadr        1         6          ;40
+   79     ldcon.b      0         0          ;41
+   80     store.b      0         0          ;41
+   81     ldadr        1         7          ;41
+   82     ldcon.i      0         1          ;42
+   83     store.i      0         0          ;42
+   84     cobeg        0         0          ;42
+   85     mkstk        1        52          ;43
+   86     ldadr        1         9          ;43
+   87     procv        0         0          ;43
+   88     calls        1         4          ;43
+   89     mkstk        1        54          ;44
+   90     ldadr        1        10          ;44
+   91     procv        0         0          ;44
+   92     calls        1         4          ;44
+   93     coend        0         0          ;45
+   94     stopx        0         0          ;46

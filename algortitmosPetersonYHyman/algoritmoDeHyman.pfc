@@ -1,0 +1,56 @@
+program algoritmoDeHyman;
+
+var
+  S1, S2: boolean;
+  turno, suma: integer;
+
+process P1;
+begin
+	repeat
+		S1 := true;
+		while(turno = 1) do
+  		begin
+    		while(S2=true)do
+    		begin
+    			writeln('Esperando(P1)...');
+    		end;
+    		turno:=1;
+  		end;
+  		writeln('El proceso 1 se encuentra en su seccion critica(SC): ');
+  		suma:= suma+1;
+  		writeln('La suma total es: ', suma);
+  		S1:=false;
+  	forever
+end;
+process P2;
+begin
+	repeat
+		S2 := true;
+		while(turno = 2) do
+  		begin
+    		while(S1=true)do
+    		begin
+    			writeln('Esperando(P2)...');
+    		end;
+    		turno:=2;
+  		end;
+  		writeln('El proceso 2 se encuentra en su seccion critica(SC): ');
+  		suma:= suma+1;
+  		writeln('La suma total es: ', suma);
+  		S2:=false;
+  	forever
+end;
+
+begin
+  suma:=0;
+  S1 := false;
+  S2 := false;
+  turno := 1;
+  cobegin
+  		P1;
+  		P2;
+  coend;
+end.
+
+
+

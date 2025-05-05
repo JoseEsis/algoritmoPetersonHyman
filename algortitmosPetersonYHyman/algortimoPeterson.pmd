@@ -1,0 +1,34 @@
+Pascal-FC post-mortem report on algortimop
+- Interpreter Version P5.3 - 
+Abnormal halt in process p2 with pc = 57
+Reason:   statement limit of 200000 reached (possible livelock)
+
+
+----------
+Main program
+
+Status:  awaiting process termination
+
+
+----------
+Process p1
+
+Status:  active
+pc = 10
+
+
+----------
+Process p2
+
+Status:  active
+pc = 57
+
+
+
+==========
+Global variables
+
+suma       = 4611
+turno      = 2
+s2         = True
+s1         = True
