@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1746404597 source:c:\users\hp\documents\algoritmohyman\main.cpp
+	<iostream>
+	<thread>
+	<atomic>
+	<chrono>
+
